@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>영상 편집자 포트폴리오</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      /* General Styles */
+      body {
+        background-color: #f4f7f6;
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2rem; /* 기본 글자 크기 1.2rem으로 확대 */
+        margin: 0; /* 페이지 전체 여백 제거 */
+        padding: 0; /* 페이지 전체 여백 제거 */
+      }
+
+      /* Sidebar */
+      .navbar-vertical {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 330px;
+        height: 100%;
+        background-image: url("https://www.transparenttextures.com/patterns/paper.gif");
+        background-color: transparent;
+        color: #333;
+        padding-top: 2rem;
+        padding-left: 2rem; /* 좌측 여백 추가 */
+        padding-right: 2rem; /* 우측 여백 추가 */
+        overflow-y: auto;
+        z-index: 1000;
+        font-size: 1.2rem; /* 사이드바 글자 크기 확대 */
+      }
+
+      .navbar-vertical .navbar-brand {
+        color: #2c3e50;
+        display: block;
+        text-align: center;
+        margin-bottom: 2rem; /* 브랜드 아래 여백 추가 */
+        font-size: 2.8rem; /* 브랜드 제목 글자 크기 확대 */
+        line-height: 1.2;
+        font-weight: bold;
+      }
+
+      .navbar-vertical .nav-link {
+        color: #34495e !important;
+        padding: 1.5rem 2rem; /* 여백 추가 */
+        font-weight: bold;
+        font-size: 1.5rem; /* 링크 글자 크기 확대 */
+        width: 100%;
+      }
+
+      .navbar-vertical .nav-link:hover {
+        background-color: rgba(211, 216, 220, 0.5);
+      }
+
+      /* Content Margin */
+      .content {
+        margin-left: 350px;
+        padding: 2rem;
+        padding-top: 3rem; /* 콘텐츠 상단 여백 추가 */
+        font-size: 1.2rem; /* 본문 글자 크기 확대 */
+      }
+
+      .intro-text {
+        color: rgba(0, 0, 0, 0.4); /* 검정색의 40% 투명도 */
+      }
+
+      /* Hero Section */
+      .hero {
+        background-image: url("https://source.unsplash.com/1600x900/?video,editing");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        padding: 3rem; /* 여백 추가 */
+      }
+
+      .hero h1 {
+        font-size: 4rem; /* 제목 글자 크기 확대 */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin: 0; /* 상단, 하단 여백 제거 */
+        padding-bottom: 1rem; /* 아래 여백 추가 */
+      }
+
+      /* Subtitle (h2) Style */
+      h2 {
+        border-bottom: 2px solid #e67e22;
+        padding-bottom: 1rem; /* 아래 여백 추가 */
+        margin-bottom: 3rem; /* 아래 여백 추가 */
+        color: #2c3e50;
+        text-align: left;
+        font-size: 2.5rem; /* h2 글자 크기 확대 */
+        font-weight: 600;
+      }
+
+      /* Paragraph Text */
+      section p {
+        font-size: 1.1rem; /* 문단 글자 크기 확대 */
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 2rem; /* 아래 여백 추가 */
+        padding-left: 1rem; /* 왼쪽 여백 추가 */
+        padding-right: 1rem; /* 오른쪽 여백 추가 */
+      }
+
+      /* Project Section Styles */
+      .project {
+        display: flex;
+        align-items: center;
+        margin-bottom: 6rem; /* 프로젝트 섹션 아래 여백 추가 */
+      }
+
+      .project-content {
+        flex: 1;
+        margin-right: 2rem; /* 프로젝트 내용 사이 여백 추가 */
+      }
+
+      .project video {
+        width: 500px;
+        height: auto;
+        transition: transform 0.2s;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 2rem; /* 비디오 아래 여백 추가 */
+      }
+
+      .project video:hover {
+        transform: scale(1.05);
+      }
+
+      .project-title {
+        font-weight: 600;
+        font-size: 1.6rem; /* 프로젝트 제목 글자 크기 확대 */
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .project-description {
+        font-size: 1.1rem; /* 프로젝트 설명 글자 크기 확대 */
+        color: #666;
+      }
+
+      /* Modal Styles */
+      .modal-content {
+        padding: 20px;
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+        background-color: #ffffff;
+      }
+
+      .modal-title {
+        font-size: 2rem; /* 모달 제목 글자 크기 확대 */
+        margin-bottom: 1rem; /* 제목 아래 여백 추가 */
+      }
+
+      .modal-description {
+        font-size: 1rem; /* 모달 설명 글자 크기 확대 */
+        color: #555;
+        margin-bottom: 1rem; /* 본문 아래 여백 추가 */
+      }
+
+      /* Contact Section */
+      .contact-icons {
+        margin-top: 2rem;
+        padding-left: 1rem; /* 좌측 여백 추가 */
+        padding-right: 1rem; /* 우측 여백 추가 */
+      }
+
+      .contact-icons a {
+        color: #2c3e50;
+        margin: 0 15px; /* 아이콘 간격 늘리기 */
+        font-size: 2rem; /* 아이콘 크기 확대 */
+      }
+
+      p,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      .project-description {
+        word-wrap: break-word; /* 단어가 길어지면 줄 바꿈 */
+        white-space: normal; /* 공백이 있을 때 정상적으로 줄 바꿈 */
+        word-break: break-word; /* 단어가 길면 강제로 줄 바꿈 */
+      }
+      /* General Styles */
+      body {
+        background-color: #f4f7f6;
+        background-image: url("https://www.transparenttextures.com/patterns/paper.png");
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2rem; /* 기본 글자 크기 1.2rem으로 확대 */
+        margin: 0; /* 페이지 전체 여백 제거 */
+        padding: 0; /* 페이지 전체 여백 제거 */
+      }
+
+      .container {
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      /* Skills Section */
+      .skills {
+        text-align: center;
+        margin-bottom: 5rem;
+      }
+
+      .skills h2 {
+        margin-bottom: 2rem;
+      }
+
+      .skill-card {
+        margin: 2rem;
+      }
+
+      .skill-card canvas {
+        margin-top: 1rem;
+      }
+    </style></head
+  >>
+
+  <body>
+    <!-- Sidebar Navigation -->
+    <nav class="navbar navbar-vertical">
+      <a class="navbar-brand" href="#home">Hwang Song-ui<br />Video Editor</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About Me</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#skills">Skills</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#projects">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="content">
+      <!-- Hero Section -->
+      <section id="home" class="hero">
+        <div>
+          <h1>welcome!</h1>
+          <p>영상 편집자 '황송의'의 포트폴리오 입니다.</p>
+        </div>
+      </section>
+
+      <!-- About Me Section -->
+      <section id="about" class="container my-5 section">
+        <h2>About Me</h2>
+        <div class="about-section">
+          <img src="IMG_1485.jpg" alt="프로필사진" />
+          <div>
+            <p>안녕하세요,</p>
+            <p class="intro-text">
+              창의적인 영상 편집을 통해 이야기를 생생하게 전달하는 영상 편집자
+              황송의입니다. 다양한 프로젝트에서 쌓아온 경험과 전문 기술을
+              바탕으로, 고객의 비전을 실현하고 감동을 선사하는 영상을
+              제작해왔습니다. 저의 포트폴리오를 통해 여러 작업물과 편집 스타일을
+              확인해 보시기 바랍니다. 함께 멋진 이야기를 만들어 나갈 기회를
+              기대하겠습니다. 감사합니다.
+            </p>
+            <p>황송의 드림</p>
+          </div>
+        </div>
+      </section>
+      <style>
+        .about-section {
+          display: flex;
+          align-items: center;
+          padding-left: 150px; /* 이미지 왼쪽에 더 많은 여백 */
+          padding-right: 250px; /* 설명 오른쪽에 더 많은 여백 */
+          padding-top: 50px; /* 상단 여백 추가 */
+          padding-bottom: 50px; /* 하단 여백 추가 */
+        }
+
+        .about-section img {
+          border-radius: 50%; /* 원형 사진 */
+          margin-right: 40px; /* 이미지와 텍스트 간격 증가 */
+          width: 180px; /* 이미지 크기 증가 */
+          height: 180px; /* 이미지 크기 증가 */
+        }
+      </style>
+
+      <!-- Skills Section -->
+      <!-- Skills Section -->
+      <section id="skills" class="container my-5 section skills">
+        <h2 class="underline">Skills</h2>
+        <div class="row">
+          <!-- Premiere Pro -->
+          <div class="col-md-3 skill-card">
+            <h5>프리미어 프로</h5>
+            <canvas id="premiereChart"></canvas>
+            <p>
+              영상 편집을 위한 강력한 소프트웨어로, 다양한 기능을 활용하여
+              전문적인 영상을 제작합니다.
+            </p>
+          </div>
+
+          <!-- After Effects -->
+          <div class="col-md-3 skill-card">
+            <h5>애프터 이펙트</h5>
+            <canvas id="aeChart"></canvas>
+            <p>
+              동영상에 특수 효과 및 애니메이션을 추가하여 더욱 매력적인 콘텐츠를
+              만듭니다.
+            </p>
+          </div>
+
+          <!-- Photoshop -->
+          <div class="col-md-3 skill-card">
+            <h5>포토샵</h5>
+            <canvas id="photoshopChart"></canvas>
+            <p>
+              이미지 편집 및 그래픽 디자인 작업을 통해 영상의 비주얼을
+              보완합니다.
+            </p>
+          </div>
+
+          <!-- Illustrator -->
+          <div class="col-md-3 skill-card">
+            <h5>일러스트</h5>
+            <canvas id="illustratorChart"></canvas>
+            <p>벡터 그래픽 디자인을 통해 독창적인 비주얼을 만듭니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Section -->
+      <section id="projects" class="container my-5 section">
+        <h2>Projects</h2>
+
+        <!-- Project 1 -->
+        <div class="project">
+          <div class="project-content">
+            <h3 class="project-title">대구 1인 미디어 센터 브이로그</h3>
+            <p class="project-description">
+              대구 1인 미디어센터에서 스튜디오와 촬영 장비를 
+              무료로 대여받은 경험이 있는데, 정말 큰 도움이 됐습니다.
+              전문적인 환경과 고급 장비를 사용할 수 있어서, 
+              제 콘텐츠의 퀄리티가 한층 업그레이드되는 걸 느꼈습니다. 
+              장비 사용과 스튜디오 셋업도 쉽고 편리하게 지원해 주어서,
+              창작에만 온전히 집중할 수 있었습니다.
+            </p>
+          </div>
+          <video
+            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            muted
+            preload="metadata"
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+            data-toggle="modal"
+            data-target="#projectModal1"
+          ></video>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project">
+          <div class="project-content">
+            <h3 class="project-title">프로젝트 제목 </h3>
+            <p class="project-description">
+              프로젝트 설명
+            </p>
+          </div>
+          <video
+            src="https://www.w3schools.com/html/mov_bbb.mp4"
+            muted
+            preload="metadata"
+            onmouseover="this.play()"
+            onmouseout="this.pause()"
+            data-toggle="modal"
+            data-target="#projectModal2"
+          ></video>
+        </div>
+
+        <!-- Modal for Project 1 -->
+        <div
+          class="modal fade"
+          id="projectModal1"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="projectModalLabel1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="projectModalLabel1">
+                  대구 1인 미디어 센터 브이로그
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <video controls>
+                  <source
+                    src="대구 1인 미디어센터 브이로그 공모전 황송의(010-7566-3125).mp4"
+                    type="video/mp4"
+                  />
+                  
+                </video>
+                <p class="modal-description">
+                  대구 1인 미디어센터에서 스튜디오와 촬영 장비를 
+              무료로 대여받은 경험이 있는데, 정말 큰 도움이 됐습니다.
+              전문적인 환경과 고급 장비를 사용할 수 있어서, 
+              제 콘텐츠의 퀄리티가 한층 업그레이드되는 걸 느꼈습니다. 
+              장비 사용과 스튜디오 셋업도 쉽고 편리하게 지원해 주어서,
+              창작에만 온전히 집중할 수 있었습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for Project 2 -->
+        <div
+          class="modal fade"
+          id="projectModal2"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="projectModalLabel2"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="projectModalLabel2">
+                  프로젝트 제목 
+                </h5>
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <video controls>
+                  <source
+                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                    type="video/mp4"
+                  />
+                  이 브라우저는 지원하지 않는 비디오입니다.
+                </video>
+                <p class="modal-description">
+                  프로젝트 설명
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section id="contact" class="container my-5 section">
+        <h2>Contact</h2>
+        <p>010-7566-3125</p>
+        <div class="contact-icons">
+          <a
+            href="https://youtube.com/channel/UCYcQQraHcylY-v1w96aru_w?si=Yy5rZLD4nnzkoX1B"
+            class="fab fa-youtube"
+            target="_blank"
+          ></a>
+
+          <a
+            href="https://www.instagram.com/grnpath101?igsh=dTBoY3VuNzk0b3R2&utm_source=qr"
+            class="fab fa-instagram"
+            target="_blank"
+          ></a>
+        </div>
+      </section>
+    </div>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="https://youtube.com/channel/UCYcQQraHcylY-v1w96aru_w?si=jZnQu4wrIZ2O0gEH"></script>
+    <script src="https://www.instagram.com/grnpath101?igsh=dTBoY3VuNzk0b3R2&utm_source=qr"></script>
+  </body>
+</html>
+ <!-- jQuery, Popper.js, Bootstrap JS -->
+ <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ <!-- Chart.js Scripts -->
+ <script>
+   // Function to create pie charts
+  // Function to create pie charts with vintage, subtle colors
+function createSkillChart(id, percentage) {
+  var ctx = document.getElementById(id).getContext('2d');
+  new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: ['Skill', 'Remaining'],
+      datasets: [{
+        data: [percentage, 100 - percentage],
+        backgroundColor: [
+          '#bfa79d', // Vintage beige for skill (Premiere Pro)
+          '#f3f0e9'  // Soft light cream for remaining
+        ],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (tooltipItem) {
+              return tooltipItem.raw + '%';
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+// Create charts for each skill with vintage color palette
+createSkillChart('premiereChart', 85); // 85% for Premiere Pro
+createSkillChart('aeChart', 75); // 75% for After Effects
+createSkillChart('photoshopChart', 80); // 80% for Photoshop
+createSkillChart('illustratorChart', 70); // 70% for Illustrator
+
+
+ </script>
+</body>
+</html>
+
